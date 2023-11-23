@@ -1,14 +1,17 @@
 ---
-- name: Cloudtrail driven remediation
+- name: Abot test driven remediation
   hosts: localhost
   sources:
-    - name: Simulated cloudtrail source
-      gravesm.eda.cloudtrail:
-        state_file: "state.json"
+    - name: Simulated abot prometheus source
+      gravesm.eda.abot:
+      ## Openshift AlertManager or http.response
+        response: "response.json"
         queue: "ansible-events-queue"
   rules:
-    - name: Update AWS resource
-      condition: +event.Arn
+    - name: Reset ShadowPipeline 
+    ## 1= pass
+    ## 0 = fail
+      condition: +event.1EmulatedgNodeB1
       action:
         run_playbook:
           name: restore.yml
